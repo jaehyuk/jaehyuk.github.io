@@ -195,7 +195,7 @@ plot_contour_2d(X_band_1[num,:,:], X_band_2[num,:,:], label)
 
 
 
-![png](statoil_tutorial_files/statoil_tutorial_6_2.png)
+![png](../images/statoil_tutorial_6_2.png)
 
 
 
@@ -215,7 +215,7 @@ plot_contour_2d(X_band_1[num,:,:], X_band_2[num,:,:], label)
 
 
 
-![png](statoil_tutorial_files/statoil_tutorial_7_2.png)
+![png](../images/statoil_tutorial_7_2.png)
 
 
 
