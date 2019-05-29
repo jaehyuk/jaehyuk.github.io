@@ -1,8 +1,12 @@
+
+
 ---
 layout: post
 title: iceboerg Satatoil
 ---
 
+
+{% highlight html %}
 ```python
 import numpy as np
 import pandas as pd
@@ -22,7 +26,7 @@ py.init_notebook_mode(connected=True) # plotly를 jupyter notebook에 사용
 # tqdm
 #from tqdm import tqdm_notebook, tnrange
 ```
-
+{% endhighlight %}
 
 <script>requirejs.config({paths: { 'plotly': ['https://cdn.plot.ly/plotly-latest.min']},});if(!window.Plotly) { {require(['plotly'],function(plotly) {window.Plotly=plotly;});} }</script>
 
