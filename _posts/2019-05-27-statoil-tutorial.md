@@ -21,7 +21,7 @@ import plotly.offline as py
 import plotly.graph_objs as go
 from plotly import tools
 
-py.init_notebook_mode(connected=True) # plotly를 jupyter notebook에 사용
+py.init_notebook_mode(connected=True) # using plotly jupyter notebook
 
 # tqdm
 #from tqdm import tqdm_notebook, tnrange
@@ -199,7 +199,7 @@ plot_contour_2d(X_band_1[num,:,:], X_band_2[num,:,:], label)
 
 
 
-![png](../images/statoil_tutorial_6_2.png)
+![png](../assets/img/statoil_tutorial_6_2.png)
 
 
 
@@ -219,7 +219,7 @@ plot_contour_2d(X_band_1[num,:,:], X_band_2[num,:,:], label)
 
 
 
-![png](../images/statoil_tutorial_7_2.png)
+![png](../assets/img/statoil_tutorial_7_2.png)
 
 
 
@@ -239,7 +239,7 @@ plot_contour_2d(X_band_1[num,:,:], X_band_2[num,:,:], label)
 
 
 
-![png](statoil_tutorial_files/statoil_tutorial_8_2.png)
+![png](../assets/img/statoil_tutorial_8_2.png)
 
 
 
@@ -259,7 +259,7 @@ plot_contour_2d(X_band_1[num,:,:], X_band_2[num,:,:], label)
 
 
 
-![png](statoil_tutorial_files/statoil_tutorial_9_2.png)
+![png](../assets/img/statoil_tutorial_9_2.png)
 
 
 
