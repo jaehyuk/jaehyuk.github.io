@@ -44,6 +44,7 @@ print('done!')
 
     train data done!
     done!
+
     
 
 
@@ -124,7 +125,7 @@ train.head()
 </table>
 </div>
 
-
+![statoil_tutorial_7_2](https://user-images.githubusercontent.com/1907395/58607236-6a1aea00-8264-11e9-9340-379f1558bfd3.png)
 
 
 ```python
