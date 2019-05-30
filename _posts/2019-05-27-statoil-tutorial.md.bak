@@ -199,7 +199,7 @@ plot_contour_2d(X_band_1[num,:,:], X_band_2[num,:,:], label)
 
 
 
-![png](/assets/img/statoil_tutorial_6_2.png)
+![png](https://raw.githubusercontent.com/jaehyuk/jaehyuk.github.io/master/assets/img/2019-05-27-statoil-tutorial/statoil_tutorial_6_2.png)
 
 
 
@@ -239,7 +239,7 @@ plot_contour_2d(X_band_1[num,:,:], X_band_2[num,:,:], label)
 
 
 
-![png]({{https://github.com/jaehyuk/jaehyuk.github.io/tree/master}}/assets/img/statoil_tutorial_8_2.png)
+![png]({{https://github.com/jaehyuk/jaehyuk.github.io}/assets/img/statoil_tutorial_8_2.png)
 
 
 
