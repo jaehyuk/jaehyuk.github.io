@@ -221,6 +221,7 @@ plot_contour_2d(X_band_1[num,:,:], X_band_2[num,:,:], label)
 
 ![png](https://raw.githubusercontent.com/jaehyuk/jaehyuk.github.io/master/assets/img/2019-05-27-statoil-tutorial/statoil_tutorial_7_2.png)
 
+![statoil_tutorial_6_2](https://user-images.githubusercontent.com/1907395/58607045-9bdf8100-8263-11e9-9b73-ef8f8253dcc5.png)
 
 
 ```python
