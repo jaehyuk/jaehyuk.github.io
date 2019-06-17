@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Statoil-modeling"
-date:   2019-06167
+date:   2019-06-16 11:30:00 -0500
 categories: Statoil
 ---
 
