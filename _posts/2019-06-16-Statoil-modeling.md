@@ -2,10 +2,7 @@
 layout: post
 title:  "Statoil-modeling"
 date:   2019-06-16 11:30:00 -0500
-categories: Statoil
 ---
-
-
 
 
 data preprocessing : https://www.kaggle.com/muonneutrino/exploration-transforming-images-in-python
