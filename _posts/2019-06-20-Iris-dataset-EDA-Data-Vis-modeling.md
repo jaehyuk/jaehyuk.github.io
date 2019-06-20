@@ -1,6 +1,6 @@
 ---
-layout: post
-title: Iris Dataset: EDA and simple ML modeling
+layout: splash
+title: "Iris Dataset: EDA and simple ML modeling"
 date:   2019-06-20 01:50:26 -0500
 ---
 
