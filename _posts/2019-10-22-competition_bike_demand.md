@@ -212,7 +212,7 @@ sns.countplot(data=test, x='windspeed', ax=axes[1])
 
 
 
-![png](output_7_1.png)
+![png](../img/2019-10-22-competition_bike_demand/output_7_1.png)
 
 
 **speed zero -> Random Forest estimated value**
@@ -307,7 +307,7 @@ sns.countplot(data=train, x='windspeed', ax=ax1)
 
 
 
-![png](output_12_1.png)
+![png](../img/2019-10-22-competition_bike_demand/output_12_1.png)
 
 
 **Feature Selection**
@@ -645,7 +645,7 @@ $\log(x)$ is the natural logarithm
 정답에 대한 오류를 숫자로 나타낸 값으로 값이 클 수록 오차가 크다는 의미다.
 값이 작을 수록 오류가 적다는 의미를 나타낸다.
 
-![image.png](attachment:image.png)
+![image.png](attachment:../img/2019-10-22-competition_bike_demand/image.png)
 
 
 
@@ -761,7 +761,7 @@ sns.pointplot(data=df, x='alpha',y='rmsle',ax=ax)
 
 
 
-![png](output_23_2.png)
+![png](../img/2019-10-22-competition_bike_demand/output_23_2.png)
 
 
 ** 라쏘 Regularization Model - Lasso **
@@ -810,7 +810,7 @@ sns.pointplot(data=df,x="alpha",y="rmsle",ax=ax)
 
 
 
-![png](output_25_2.png)
+![png](../img/2019-10-22-competition_bike_demand/output_25_2.png)
 
 
  **앙상블모델 - 랜덤포레스트** 
@@ -883,7 +883,7 @@ sns.distplot(np.exp(predsTest), ax=ax2, bins=50)
 
 
 
-![png](output_30_1.png)
+![png](../img/2019-10-22-competition_bike_demand/output_30_1.png)
 
 
 ** Submit **
