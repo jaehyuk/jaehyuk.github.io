@@ -4,6 +4,8 @@ title: "Kaggle: Bike Sharing Demand"
 date:   2019-10-22 11:13:00 -0500
 ---
 
+### Kaggle: EDA and simple ML modeling 
+
 ```python
 import pandas as pd
 import numpy as np
