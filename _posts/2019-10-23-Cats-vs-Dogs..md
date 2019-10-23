@@ -1,8 +1,11 @@
+---
+layout: splash
+title: "Cats vs Dogs"
+date:   2019-10-22 11:13:00 -0500
 
+---
 
 ```python
-
-```
 
 # Using more sophisticated images with Convolutional Neural Networks
 
@@ -163,7 +166,7 @@ plt.show()
 ```
 
 
-![png](output_17_0.png)
+![png](../img/2019-10-23-Cats-vs-Dogs/output_17_0.png)
 
 
 It may not be obvious from looking at the images in this grid, but an important note here, and a significant difference from the previous lesson is that these images come in all shapes and sizes. When you did the handwriting recognition example, you had 28x28 greyscale images to work with. These are color and in a variety of shapes. Before training a Neural network with them you'll need to tweak the images. You'll see that in the next section.
@@ -771,11 +774,11 @@ plt.show()
 ```
 
 
-![png](output_46_0.png)
+![png](../img/2019-10-23-Cats-vs-Dogs/output_46_0.png)
 
 
 
-![png](output_46_1.png)
+![png](../img/2019-10-23-Cats-vs-Dogs/output_46_1.png)
 
 
 The Training Accuracy is close to 100%, and the validation accuracy is in the 70%-80% range. This is a great example of overfitting -- which in short means that it can do very well with images it has seen before, but not so well with images it hasn't. Let's see if we can do better to avoid overfitting -- and one simple method is to augment the images a bit. If you think about it, most pictures of a cat are very similar -- the ears are at the top, then the eyes, then the mouth etc. Things like the distance between the eyes and ears will always be quite similar too. 
@@ -923,11 +926,11 @@ plt.show()
 ```
 
 
-![png](output_49_0.png)
+![png](../img/2019-10-23-Cats-vs-Dogs/output_49_0.png)
 
 
 
-![png](output_49_1.png)
+![png](../img/2019-10-23-Cats-vs-Dogs/output_49_1.png)
 
 
 
@@ -1263,9 +1266,9 @@ plt.show()
 ```
 
 
-![png](output_51_0.png)
+![png](../img/2019-10-23-Cats-vs-Dogs/output_51_0.png)
 
 
 
-![png](output_51_1.png)
+![png](../img/2019-10-23-Cats-vs-Dogs/output_51_1.png)
 
