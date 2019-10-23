@@ -1,14 +1,9 @@
----
-layout: splash
-title: "VSB Power line fault detection"
-date:   2019-10-22 11:13:00 -0500
----
 
 ## Basic Data EDA
 Understanding data / save figures
 
 
-
+### Import library
 
 ```python
 import numpy as np
@@ -27,6 +22,7 @@ import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
+# matplotlib setting
 %matplotlib inline
 plt.style.use('seaborn-whitegrid')
 plt.style.available[:10]
@@ -34,13 +30,13 @@ plt.rcParams["figure.figsize"] = [10,8]
 plt.style.use('dark_background')
 ```
 
-
+### Import data
 ```python
 train_meta_df = pd.read_csv('../input/metadata_train.csv')
 test_meta_df = pd.read_csv('../input/metadata_test.csv')
 ```
 
-
+### Data size
 ```python
 print("meta data - train (shape) : {}".format(train_meta_df.shape))
 print("meta data - test (shape) : {}".format(test_meta_df.shape))
@@ -50,28 +46,13 @@ print("meta data - test (shape) : {}".format(test_meta_df.shape))
     meta data - test (shape) : (20337, 3)
     
 
-
+### Data head
 ```python
 train_meta_df.head(6)
 ```
 
 
 
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -247,14 +228,14 @@ msno.matrix(train_meta_df, figsize=(10,8))
 
 
 
-![png](output_9_1.png)
+![png](../img/2019-10-23-vsb-power-line-fault-detection/output_9_1.png)
 
+
+## Check target
+###  ax: array for two axis object
 
 
 ```python
-## Check target
-### 먼저 플롯 그리드를 생성 p260
-###  ax는 두 개의 축 객체의 배열이 됨
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14,4))
 sns.countplot(x='target', data=train_meta_df, ax=ax1)
 sns.countplot(x='target', data=train_meta_df, hue='phase', ax=ax2)
@@ -269,7 +250,7 @@ sns.countplot(x='target', data=train_meta_df, hue='phase', ax=ax2)
 
 
 
-![png](output_10_1.png)
+![png](../img/2019-10-23-vsb-power-line-fault-detection/output_10_1.png)
 
 
 
@@ -951,15 +932,15 @@ for i in range(train_length):
 ```
 
 
-![png](output_25_0.png)
+![png](../img/2019-10-23-vsb-power-line-fault-detection/output_25_0.png)
 
 
 
-![png](output_25_1.png)
+![png](../img/2019-10-23-vsb-power-line-fault-detection/output_25_1.png)
 
 
 
-![png](output_25_2.png)
+![png](../img/2019-10-23-vsb-power-line-fault-detection/output_25_2.png)
 
 
 ### Exploratory Plot2
