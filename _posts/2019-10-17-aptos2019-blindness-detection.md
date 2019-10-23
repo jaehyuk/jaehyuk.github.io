@@ -1,6 +1,6 @@
 ---
 layout: splash
-title: "Kaggle: APTOS 2019 Blindness Detection"
+title: "APTOS 2019 Blindness Detection"
 date:   2019-10-22 11:13:00 -0500
 ---
 
