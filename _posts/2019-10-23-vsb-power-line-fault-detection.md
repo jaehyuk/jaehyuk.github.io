@@ -1,4 +1,11 @@
 
+---
+layout: splash
+title: "VSB Power line fault detection"
+date:   2019-10-22 11:13:00 -0500
+---
+
+
 ## Basic Data EDA
 Understanding data / save figures
 
