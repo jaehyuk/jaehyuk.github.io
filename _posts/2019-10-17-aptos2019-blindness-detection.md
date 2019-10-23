@@ -334,7 +334,7 @@ for img_name in df_train['path'][0:15]:
 ```
 
 
-![png](2019-10-17-aptos2019-blindness-detection/output_23_0.png)
+![png](../img/2019-10-17-aptos2019-blindness-detection/output_23_0.png)
 
 
 ### Model Parameters
