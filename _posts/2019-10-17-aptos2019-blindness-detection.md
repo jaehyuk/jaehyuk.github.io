@@ -1,14 +1,15 @@
 ---
 layout: splash
-title: "Kaggle: Detect diabetic retinopathy to stop blindness before it's too late"
+title: "Kaggle: APTOS 2019 Blindness Detection"
 date:   2019-10-22 11:13:00 -0500
 ---
 
-### Kaggle: APTOS 2019 Blindness Detection 
+### Kaggle:  Detect diabetic retinopathy to stop blindness before it's too late
 
+#### Tensorflow configuration
+##### Using TensorFlow backend
 
 ```python
-#https://github.com/keras-team/keras/issues/4161#issuecomment-366031228
 import tensorflow as tf
 from keras.backend.tensorflow_backend import set_session
 config = tf.ConfigProto()
@@ -43,6 +44,7 @@ def current_name(folder, postfix):
     return file_name
 ```
 
+##### Library import
 
 ```python
 import numpy as np
@@ -116,7 +118,7 @@ os.listdir("./input/models")
      'vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5']
 
 
-
+##### Keras library import 
 
 ```python
 from keras.models import Model
@@ -126,6 +128,7 @@ from keras.callbacks import EarlyStopping, ReduceLROnPlateau
 from keras.layers import Dense, Dropout, GlobalAveragePooling2D, Input
 ```
 
+##### device information
 
 ```python
 from tensorflow.python.client import device_lib
@@ -237,65 +240,6 @@ df_train.head()
 
 
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>id_code</th>
-      <th>diagnosis</th>
-      <th>path</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>000c1434d8d7</td>
-      <td>2</td>
-      <td>./input/train_images\000c1434d8d7.png</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>001639a390f0</td>
-      <td>4</td>
-      <td>./input/train_images\001639a390f0.png</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>0024cdab0c1e</td>
-      <td>1</td>
-      <td>./input/train_images\0024cdab0c1e.png</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>002c21358ce6</td>
-      <td>0</td>
-      <td>./input/train_images\002c21358ce6.png</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>005b95c28852</td>
-      <td>0</td>
-      <td>./input/train_images\005b95c28852.png</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
 
 
 ```python
@@ -316,7 +260,7 @@ df.info()
 ```python
 df_train['diagnosis']=df_train['diagnosis'].astype('str')
 ```
-
+##### ID mapping to image file
 
 ```python
 df_train['id_file'] = df_train['id_code'] + '.png'
@@ -425,21 +369,8 @@ df_test.head()
 
 
 
+##### ID mapping to image file
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -479,10 +410,10 @@ df_test.head()
 </div>
 
 
-
+##### Keras Data Generator to load large image data
 
 ```python
-### Data Generator
+
 from keras.preprocessing.image import ImageDataGenerator
 
 train_datagen = ImageDataGenerator(rescale=1./255.,
@@ -527,45 +458,7 @@ test_generator = test_datagen.flow_from_dataframe(
     Found 1928 validated image filenames.
     
 
-
-```python
-# from keras import optimizers, applications
-
-# def create_model(input_shape, n_out):
-# #    Resnet
-# #    input_tensor = Input(shape=input_shape)
-# #     base_model = applications.ResNet50(weights=None, 
-# #                                        include_top=False,
-# #                                        input_tensor=input_tensor)
-# #     base_model.load_weights('./input/resnet50/resnet50_weights_tf_dim_ordering_tf_kernels_notop.h5')
-#     base_model = applications.VGG16(weights='imagenet',
-#                                    include_top=False,
-#                                    input_shape=input_shape)
-    
-#     x = GlobalAveragePooling2D()(base_model.output)
-#     x = Dropout(0.5)(x)
-#     x = Dense(2048, activation='relu')(x)
-#     x = Dropout(0.5)(x)
-#     final_output = Dense(n_out, activation='softmax', name='final_output')(x)
-#     model = Model(Input(input_shape), final_output)
-    
-#     return model
-```
-
-
-```python
-# from keras.layers import Dense, Dropout, GlobalAveragePooling2D, Input, Flatten
-# from keras.models import Sequential
-# from keras import optimizers, applications
-# import tensorflow as tf
-
-# vgg16 = applications.VGG16(weights='imagenet',
-#                                    include_top=False,
-#                                    input_shape=(HEIGHT, WIDTH, CHANNEL))
-
-# vgg16.summary()
-```
-
+##### Transfer learning with VGG16 pretrained model using 'imagenet'
 
 ```python
 from keras.layers import Dense, Dropout, GlobalAveragePooling2D, Input, Flatten
@@ -647,11 +540,6 @@ model.add(Dense(N_CLASSES, activation='softmax'))#, name='final_output'))
 
 ```python
 
-```
-
-
-```python
-
 
 metric_list = [4]
 optimizer = optimizers.Adam(lr=WARMUP_LEARNING_RATE)
@@ -682,34 +570,7 @@ model.summary()
     
 
 
-```python
-# STEP_SIZE_TRAIN = train_generator.n//train_generator.batch_size
-# STEP_SIZE_VALID = valid_generator.n//valid_generator.batch_size
-
-# history_warmup = model.fit_generator(generator=train_generator,
-#                                     steps_per_epoch=STEP_SIZE_TRAIN,
-#                                     validation_data=valid_generator,
-#                                     validation_steps=STEP_SIZE_VALID,
-#                                     epochs=WARMUP_EPOCHS,
-#                                     verbose=1).history
-```
-
-
-```python
-# from keras.models import load_model
-
-#model.save(current_name('WORKING','-resnet50.h5'))
-# model = load_model("./WORKING/190818a_initialization.h5")
-```
-
-
-```python
-# from numba import cuda
-# cuda.select_device(0)
-# cuda.close()
-```
-
-Fine-Tune the complete model
+### Fine-Tune the complete model
 
 
 ```python
@@ -751,7 +612,7 @@ model.summary()
     Non-trainable params: 14,714,688
     _________________________________________________________________
     
-
+### Model training
 
 ```python
 history_finetunning = model.fit_generator(generator=train_generator,
@@ -807,6 +668,7 @@ history_finetunning = model.fit_generator(generator=train_generator,
     Epoch 00020: early stopping
     
 
+Model save 
 
 ```python
 # from keras.models import load_model
@@ -822,18 +684,13 @@ model.save(current_name('WORKING','-vgg16.h5'))
 
 
 ```python
-# history = {'loss': history_warmup['loss'] + history_finetunning['loss'],
-#            'val_loss':history_warmup['val_loss'] + history_finetunning['val_loss'],
-#            'acc': history_warmup['acc'] + history_finetunning['acc'],
-#            'val_acc': history_warmup['val_acc'] + history_finetunning['val_acc']}
+
 history = {'loss': history_finetunning['loss'],
            'val_loss':history_finetunning['val_loss'],
            'acc':history_finetunning['acc'],
           'val_acc': history_finetunning['val_acc']}
 
 
-
-#sns.set_style('whitegrid')
 
 fig, (ax1, ax2) = plt.subplots(2, 1, sharex='col', figsize=(12,8))
 
@@ -861,18 +718,6 @@ plt.show()
 ![png](output_42_0.png)
 
 
-
-```python
-# from numba import cuda
-# cuda.select_device(0)
-# cuda.close()
-
-# import tensorflow as tf
-# from keras.backend.tensorflow_backend import set_session
-# config = tf.ConfigProto()
-# config.gpu_options.per_process_gpu_memory_fraction = 0.3
-# set_session(tf.Session(config=config))
-```
 
 ### Model Evaluation
 
