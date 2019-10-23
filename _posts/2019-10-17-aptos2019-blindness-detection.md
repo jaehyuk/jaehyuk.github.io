@@ -191,7 +191,7 @@ plt.title('Samples Per Class')
 
 
 
-![png](output_12_1.png)
+![png](../img/2019-10-17-aptos2019-blindness-detection/output_12_1.png)
 
 
 
@@ -306,7 +306,7 @@ for img_name in df_train['path'][0:15]:
 ```
 
 
-![png](output_21_0.png)
+![png](../img/2019-10-17-aptos2019-blindness-detection/output_21_0.png)
 
 
 
@@ -715,7 +715,7 @@ plt.show()
 ```
 
 
-![png](output_42_0.png)
+![png](../img/2019-10-17-aptos2019-blindness-detection/output_42_0.png)
 
 
 
@@ -767,7 +767,7 @@ plt.show()
 ```
 
 
-![png](output_47_0.png)
+![png](../img/2019-10-17-aptos2019-blindness-detection/output_47_0.png)
 
 
 
