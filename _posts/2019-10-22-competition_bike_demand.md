@@ -1,6 +1,6 @@
 ---
 layout: splash
-title: "Kaggle: Bike Sharing Demand"
+title: "Bike Sharing Demand"
 date:   2019-10-22 11:13:00 -0500
 ---
 
