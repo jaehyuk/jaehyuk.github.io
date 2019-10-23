@@ -1,3 +1,8 @@
+---
+layout: splash
+title: "VSB Power Line Fault Detection"
+date:   2019-10-22 11:13:00 -0500
+---
 
 ## Basic Data EDA
 Understanding data / save figures
@@ -120,20 +125,7 @@ test_meta_df.head()
 
 
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -180,7 +172,7 @@ test_meta_df.head()
 
 
 
-**Check Null**
+**Check missing information**
 
 
 ```python
@@ -212,7 +204,7 @@ test_meta_df.isnull().sum()
     dtype: int64
 
 
-
+#### Using missngno library to visualize missing information
 
 ```python
 import missingno as msno
@@ -231,8 +223,8 @@ msno.matrix(train_meta_df, figsize=(10,8))
 ![png](../img/2019-10-23-vsb-power-line-fault-detection/output_9_1.png)
 
 
-## Check target
-###  ax: array for two axis object
+## Simple EDA
+
 
 
 ```python
@@ -271,12 +263,10 @@ print('positvie(target=1) : {}'.format(target_count[1]))
 
 ```python
  train_meta_df['phase'].nunique()
-```
-
-
-
+``` 
 
     3
+   
 
 
 
@@ -322,20 +312,6 @@ miss
 
 
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -605,12 +581,13 @@ train_meta_df['id_measurement'].value_counts().describe()
     Name: id_measurement, dtype: float64
 
 
-
+### Data size is too big, then make subset to build model
 
 ```python
 subset_train = pq.read_pandas('../input/train.parquet', columns=[str(i) for i in range(20)]).to_pandas()
 ```
 
+#### Memory check
 
 ```python
 subset_train.memory_usage(index=True).sum()
@@ -622,7 +599,7 @@ subset_train.memory_usage(index=True).sum()
     16000080
 
 
-
+## Signal processing for time series data of power line
 
 ```python
 n_samples = subset_train.shape[0]
@@ -819,6 +796,7 @@ def pv_features(x_dn, pv_true, peaks, valleys, rel_height=0.2):
     
 ```
 
+#### Define filter/denoise functions
 
 ```python
 def maddest(d, axis=None):
@@ -879,6 +857,7 @@ def denoise_signal(x, wavelet='db4', level=1):
     return pywt.waverec( coeff, wavelet, mode='per' )   
 ```
 
+### Model Training
 
 ```python
 metadata_train =pd.read_csv('../input/metadata_train.csv')
@@ -1067,21 +1046,6 @@ for i in range(train_length):
     plt.title(f"measurement id: {measurement}, signal id: {signal_id}, phase: {phase}, target: {target}", fontsize=font_size)
     plt.show()
 ```
-
-
-    ---------------------------------------------------------------------------
-
-    NameError                                 Traceback (most recent call last)
-
-    <ipython-input-29-eeea9fbb49a8> in <module>
-         26 
-         27     # Cancel false peaks
-    ---> 28     true_pv, false_pv = cancel_false_peaks(x_dn[start:start+slice_size], all_peaks, min_height_fp=15)
-         29     true_peaks = np.array(list(set(peaks) & set(true_pv)), dtype=np.int32)  # intersection of true peaks/valleys and peaks
-         30     true_valleys = np.array(list(set(valleys) & set(true_pv)), dtype=np.int32)  # intersection of true peaks/valleys and valleys
-    
-
-    NameError: name 'cancel_false_peaks' is not defined
 
 
 ### Load Train Dataset
