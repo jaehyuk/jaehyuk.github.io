@@ -1,3 +1,10 @@
+---
+layout: splash
+title: "Kaggle: Detect diabetic retinopathy to stop blindness before it's too late"
+date:   2019-10-22 11:13:00 -0500
+---
+
+### Kaggle: APTOS 2019 Blindness Detection 
 
 
 ```python
