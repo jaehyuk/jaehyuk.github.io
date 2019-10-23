@@ -22,7 +22,7 @@ import warnings
 warnings.filterwarnings('ignore')
 ```
 
-
+### Import data
 ```python
 train = pd.read_csv('../DATA/train.csv', parse_dates=['datetime'])
 train.shape
@@ -56,20 +56,6 @@ test.head()
 
 
 
-<div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-    
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -218,14 +204,11 @@ sns.countplot(data=test, x='windspeed', ax=axes[1])
 
 
 **speed zero -> Random Forest estimated value**
-평균을 구해서 일괄적으로 넣어줄 수도 있지만, 예측의 정확도를 높이기 위해서
+To Improve precision,
 
 
 ```python
-# average windspeed
-#train.loc[train['windspeed']==0, 'windspeed'] = train['windspeed'].mean()
-#test.loc[train['windspeed']==0, 'windspeed'] = train['windspeed'].mean()
-# 풍속이 0인것과 아닌 것의 세트를 나누어 준다.
+# divide windspeed = 0 / others 
 
 trainWind0 = train.loc[train['windspeed'] == 0]
 trainWindNot0 = train.loc[train['windspeed'] != 0]
@@ -243,17 +226,17 @@ from sklearn.ensemble import RandomForestClassifier
 
 def predict_windspeed(data):
     
-    # 풍속이 0인것과 아닌 것을 나누어 준다.
+    # divide windspeed 0 or others
     dataWind0 = data.loc[data['windspeed'] == 0]
     dataWindNot0 = data.loc[data['windspeed'] != 0]
     
-    #풍속을 예측할 피처를 선택한다.
+    # Feature selection to predict windspeed
     wCol = ["season", "weather", "humidity", "month", "temp", "year", "atemp"]
 
-    #풍속이 0이 아닌 데이터들의 타입을 스트링으로 바꿔준다
+    # non-zero windspeed data converted to string
     dataWindNot0["windspeed"] = dataWindNot0["windspeed"].astype("str")
 
-    #Random Forest 분류기를  사용한다
+    # using Random 
     rfModel_wind = RandomForestClassifier()
 
     # wCol에 있는 피처의 값을 바탕으로 풍속을 학습시킨다
@@ -284,8 +267,7 @@ def predict_windspeed(data):
 
 
 ```python
- # 0값을 조정한다
-train = predict_windspeed(train)
+ train = predict_windspeed(train)
 # test = predict_windspeed(test)
 
 ```
@@ -314,16 +296,14 @@ sns.countplot(data=train, x='windspeed', ax=ax1)
 
 **Feature Selection**
 
-- 신호와 잡음을 구분해야 한다
-- 피처가 많다고 무조건 좋은 성능을 내지는 않는다
-- 피처를 하나씩 추가하고 변경해 가면서 성능이 좋지않은 피처른 제거해야한다
-
+- signal and noise separation
+- increasing number of features not guarantee good performance
 
 
 ```python
-# 연속형 feature와 범주형 feature
-# 연속형 feature = ['temp','humidity',windspeed','atemp']
-# 범주형 feature의 type을 category로 변경해준다
+# numeric feature와 categorical feature
+# numeric feature = ['temp','humidity',windspeed','atemp']
+# categorical feature type convert category
 categorical_feature_names = ["season", "holiday", "workingday", "weather", "dayofweek", "month", "year", "hour"]
 
 for var in categorical_feature_names:
@@ -334,7 +314,7 @@ for var in categorical_feature_names:
 feature_names = ["season", "weather", "temp", "atemp", "humidity", "windspeed",
                  "year", "hour", "dayofweek", "holiday", "workingday"]
 
-feature_names
+### Selected feature names
 ```
 
 
@@ -368,20 +348,7 @@ X_train.head()
 
 
 
-<div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-    
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
+X_train
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -490,20 +457,7 @@ X_test.head()
 
 
 
-<div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-    
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
+X_test
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -622,36 +576,20 @@ y_train.head()
 
 
 
-**Score**
+### Metric
 
 **RMSLE**
 
-과대평가 된 항목보다는 과소평가 된 항목에 패널티를 준다.
+more penalty for under-estimation rather than over-estimation 
 
-오차(Error)를 제곱(Square)해서 평균(Mean)한 값의 제곱근(Root) 으로 값이 작을 수록 정밀도가 높다.
 
-0에 가까운 값이 나올 수록 정밀도가 높은 값이다.
+Error = root(mean(Square(x))) : should be smaller
+
+high performance : close to 0 
 
 Submissions are evaluated one the Root Mean Squared Logarithmic Error (RMSLE)
 
-$$ \sqrt{\frac{1}{n} \sum_{i=1}^n (\log(p_i + 1) - \log(a_i+1))^2 } $$
-${n}$ is the number of hours in the test set
-$p_i$ is your predicted count
-$a_i$ is the actual count
-$\log(x)$ is the natural logarithm
-
-좀 더 자세한 설명은 : RMSLE cost function
-
-잔차(residual)에 대한 평균에 로그를 씌운 값이다. => 과대평가 된 항목보다 과소 평가 된 항목에 패널티를 주기위해
-
-정답에 대한 오류를 숫자로 나타낸 값으로 값이 클 수록 오차가 크다는 의미다.
-값이 작을 수록 오류가 적다는 의미를 나타낸다.
-
-![image.png](attachment:../img/2019-10-22-competition_bike_demand/image.png)
-
-
-
-
+RMSLE cost function
 
 ```python
 from sklearn.metrics import make_scorer
@@ -662,34 +600,28 @@ def rmsle(predicted_values, actual_values, convertExp=True):
         predicted_values = np.exp(predicted_values),
         actual_values = np.exp(actual_values)
         
-    # 넘파이로 배열 형태로 바꿔준다.
+    # numpy array
     predicted_values = np.array(predicted_values)
     actual_values = np.array(actual_values)
     
-    # 예측값과 실제 값에 1을 더하고 로그를 씌워준다.
+    # log(x +1) : avoid zero
     log_predict = np.log(predicted_values + 1)
     log_actual = np.log(actual_values + 1)
     
-    # 위에서 계산한 예측값에서 실제값을 빼주고 제곱을 해준다.
+    # prediction - actual
     difference = log_predict - log_actual
     difference = np.square(difference)
     
-    # 평균을 낸다.
+    # average
     mean_difference = difference.mean()
     
-    # 다시 루트를 씌운다.
+    # root
     score = np.sqrt(mean_difference)
     
     return score
 ```
 
-** 선형회귀 모델 Linear Regression Model **
-
-- 선형회귀 또는 최소제곱법은 가장 간단하고 오래된 회귀용 선형 알고리즘
-- 선형회귀는 예측과 훈련세트에 있는 타깃 y 사이의 평균제곱오차(MSE)를 최소화하는 파라미터 w와 b를 찾는다
-- 매개변수가 없는 것이 장점이지만, 모델의 복잡도를 제어할 수 없다는 단점이 있다
-
-
+** Linear Regression Model **
 
 ```python
 from sklearn.linear_model import LinearRegression, Ridge, Lasso
@@ -699,14 +631,14 @@ import warnings
 pd.options.mode.chained_assignment = None
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-#선형회귀 모델을 초기화
+# initialization for linear regression model
 lModel = LinearRegression()
 
-# 모델을 학습시킨다
+# model training
 y_train_log = np.log1p(y_train)
 lModel.fit(X_train,y_train_log)
 
-# 예측하고 정확도를 평가한다
+# predict and measure metric
 preds = lModel.predict(X_train)
 print ("RMLS Value Fro linear Regression: ",
        rmsle(np.exp(y_train_log),np.exp(preds), False))
@@ -715,12 +647,12 @@ print ("RMLS Value Fro linear Regression: ",
     ('RMLS Value Fro linear Regression: ', 0.97965334462885068)
 
 
-** 릿지 Regularization Model - Ridge **
+** Regularization Model - Ridge **
 
-- 회귀를 위한 선형모델
-- 가중치(w)의 모든 원소가 0에 가깝게 만들어 모든 피처가 주는 영향을 최소화 (기울기를 작게만듬)
-- Regularization(규제)는 오버피팅(과대적합)이 되지 않도록 모델을 강제로 제한한다는 의미
-- max_iter반복실행하는 최대횟수는 3000을 넣어주었다.
+- linear model for regression
+- weights converge to 0 then reduce the influence from features 
+- Regularization to avoid overfitting
+- max_iter = 3000
 
 
 ```python
@@ -766,15 +698,12 @@ sns.pointplot(data=df, x='alpha',y='rmsle',ax=ax)
 ![png](../img/2019-10-22-competition_bike_demand/output_23_2.png)
 
 
-** 라쏘 Regularization Model - Lasso **
+** Regularization Model - Lasso **
 
-- 선형회귀의 Regularization(규제)를 적용하는 대안
-- 계수를 0에 가깝게 만들려고 하며 이를 L1규제라고 하며, 어떤 계수는 0이 되기도 하는데 이는 완전히 제외하는 피처가 생긴다는 의미다
-- 피처선택이 자동으로 이루어진다고도 볼수 있다
-- alpha값의 기본값은 1.0이며, 과소적합을 줄이기 위해서는 이값을 줄여야 한다
-- 그리드 서치로 아래 라쏘모델을 실행했을 때 베스트 알파값은 0.0025
-- max_iter(반복실행하는 최대횟수)는 3000을 넣어주었다.
-
+- linear regression = Regularization
+- not important features are zero weight
+- auto feature selection
+- reduce alpha to avoide underfitting (e.g.: alpha for grid search = 0.0025)
 
 
 ```python
@@ -815,9 +744,9 @@ sns.pointplot(data=df,x="alpha",y="rmsle",ax=ax)
 ![png](../img/2019-10-22-competition_bike_demand/output_25_2.png)
 
 
- **앙상블모델 - 랜덤포레스트** 
+ 
 
- Ensemble Models - Random Forest
+ ** Ensemble Models - Random Forest **
 
  
 
@@ -838,18 +767,9 @@ print("RMSLE value for Random Forest: ",score)
     ('RMSLE value for Random Forest: ', 0.10595027919581249)
 
 
-** 앙상블모델 - 그래디언트 부스트 **
 
 ** Ensemble Model - Gradient Boost **
 
-- 여러개의 결정트리를 묶어 강력한 모델을 만드는 또 다른 앙상블기법
-- 회귀와 분류에 모두 사용할 수 있음
-- 랜덤포레스트와 달리 이진트리의 오차를 보완하는 방식으로 순차적으로 트리를 만든다
-- 무작위성이 없고, 강력한 사전 가지치기가 사용됨
-- 1~5개의 깊지 않은 트리를 사용하기 때문에 메모리를 적게 사용하고 예측이 빠름
-- learning_rate: 오차를 얼마나 강하게 보정할 것인지를 제어
-- n_estimator의 값을 ㄱ키우면 앙상블에 트리가 더 많이 추가되어 모델의 복잡도가 커지고 훈련세트에서의 실수를 바로잡을 기회가 많아지지만, 너무 크면 모델이 복잡해지고 오버피팅(과적합)이 될수 있다.
-- max_depth(max_leaf_nodes) 복잡도를 너무 높이지 말고 트리의 깊이가 5보다 깊어지지 않게 한다.
 
 
 ```python
@@ -1013,9 +933,9 @@ print("Score= {0:.5f}".format(score))
     Score= 0.33063
 
 
-
+### Training
 ```python
-# 학습시킴, 피팅(옷을 맞출 때 사용하는 피팅을 생각함) - 피처와 레이블을 넣어주면 알아서 학습을 함
+
 model.fit(X_train, y_train)
 ```
 
@@ -1031,10 +951,9 @@ model.fit(X_train, y_train)
 
 
 
-
+### Prediction
 ```python
 
-# 예측
 predictions = model.predict(X_test)
 
 print(predictions.shape)
@@ -1052,10 +971,9 @@ predictions[0:10]
 
 
 
-
+### Visualization
 ```python
 
-# 예측한 데이터를 시각화 해본다. 
 fig,(ax1,ax2)= plt.subplots(ncols=2)
 fig.set_size_inches(12,5)
 sns.distplot(y_train,ax=ax1,bins=50)
@@ -1072,7 +990,7 @@ ax2.set(title="test")
 
 
 
-![png](output_39_1.png)
+![png](../img/2019-10-22-competition_bike_demand/output_39_1.png)
 
 
 
@@ -1150,3 +1068,4 @@ submission.head()
 ```python
 submission.to_csv("../DATA/Score_{0:.5f}_submission.csv".format(score), index=False)
 ```
+
