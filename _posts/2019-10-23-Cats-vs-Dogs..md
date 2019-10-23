@@ -4,7 +4,7 @@ title: "Cats vs Dogs"
 date:   2019-10-22 11:13:00 -0500
 
 ---
-#### Coursera course project using CNN(Convolutional Neural Network)
+#### Coursera: *Tensorflow in Practice*  course project using CNN(Convolutional Neural Network)
 
 ```python
 
