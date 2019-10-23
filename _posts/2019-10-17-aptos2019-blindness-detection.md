@@ -204,7 +204,7 @@ plt.show()
 ```
 
 
-![png](2019-10-17-aptos2019-blindness-detection/output_13_0.png)
+![png](../img/2019-10-17-aptos2019-blindness-detection/output_13_0.png)
 
 
 
@@ -220,7 +220,7 @@ df['diagnosis'].value_counts().plot(kind='pie')
 
 
 
-![png](2019-10-17-aptos2019-blindness-detection/output_14_1.png)
+![png](../img/2019-10-17-aptos2019-blindness-detection/output_14_1.png)
 
 
 
